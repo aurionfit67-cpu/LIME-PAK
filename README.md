@@ -1,303 +1,205 @@
-# AI Company Builder
+# 🚀 AI Company Builder
 
-A complete fullstack application for building and managing AI-powered companies with intelligent agents, team collaboration, and AI-driven website generation.
+A complete AI-powered company management platform with intelligent agents, smart failover, and beautiful UI.
 
-## 🚀 Features
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
 
-### 🏢 Company Management
-- **Company Dashboard** - Overview of company metrics, goals, and recent activity
-- **Organization Chart** - Visual C-suite hierarchy and leadership structure
-- **Mission & Vision** - Company mission, vision, and strategic goals
+## ✨ Features
 
-### 👥 Team Management
-- **Team Directory** - Manage team members across departments
-- **C-Suite Positions** - CEO, CFO, COO, CTO, CMO, CHRO, CPO, CRO, CLO, CSO
-- **Department Organization** - Organize teams by functional areas
+- 🤖 **AI Agent Workforce** - Create & chat with AI agents using real Gemini/Groq APIs
+- 💬 **Smart AI Failover** - Automatic switching: Gemini → Groq → Mock
+- 🌐 **AI Website Builder** - Generate complete websites from text prompts
+- 📋 **Project Management** - Kanban boards with drag-and-drop
+- 👥 **Team Organization** - C-suite positions, org charts, team management
+- 📚 **Knowledge Base** - Centralized company knowledge
+- 🔐 **Authentication** - Secure login with session management
+- 🎨 **Premium UI** - Modern, colorful, responsive design
 
-### 🤖 AI Agent Workforce
-- **Agent Builder** - Create custom AI agents with specific roles and capabilities
-- **Agent Chat Interface** - ChatGPT-style conversation interface with agents
-- **Agent Configuration** - Define personality, goals, tools, and permissions
-- **Department Assignment** - Assign agents to specific departments
+## 🚀 Deploy to Vercel
 
-### 💼 Project & Task Management
-- **Project Dashboard** - Track all company projects and progress
-- **Kanban Board** - Visual task management with drag-and-drop
-- **Task Assignment** - Assign tasks to team members and AI agents
-- **Progress Tracking** - Monitor project completion and team performance
+### 1. Push to GitHub
 
-### 📚 Company Knowledge
-- **Knowledge Base** - Centralized repository for company information
-- **Document Storage** - Store notes, guides, and documentation
-- **Searchable Content** - Easy access to company knowledge (ready for future RAG integration)
+```bash
+git clone <your-repo>
+cd ai-company-builder
+git add .
+git commit -m "Initial commit"
+git push origin main
+```
 
-### 🌐 AI Website Builder
-- **AI Website Generation** - Generate complete websites from text prompts
-- **Section-Based Design** - Navbar, Hero, Features, About, CTA, Footer
-- **Live Preview** - Preview generated websites in real-time
-- **Publish/Draft System** - Control website publication status
+### 2. Deploy on Vercel
 
-## 🏗️ Architecture
+1. Go to [vercel.com/new](https://vercel.com/new)
+2. Import your GitHub repository
+3. Add environment variables:
+   - `GEMINI_API_KEY` - Your Gemini API key
+   - `GROQ_API_KEY` - Your Groq API key
+4. Click **Deploy**
 
-### Frontend
-- **Next.js 16** - React framework with App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first styling
-- **Responsive Design** - Mobile-friendly layouts
+### 3. Test Your Deployment
 
-### Backend
-- **Next.js API Routes** - Server-side API endpoints
-- **Service Layer** - Clean separation of business logic
-- **Mock Data Store** - In-memory storage for development
-- **PostgreSQL Ready** - Drizzle ORM schema defined
+Visit `/login` and use demo credentials:
+- Email: `ceo@acme.com`
+- Password: `password`
 
-### AI Integration (Mock)
-- **Mock AI Service** - Simulates AI responses for development
-- **Abstraction Layer** - Easy to swap with real AI APIs
-- **Context-Aware Responses** - Agent-specific responses based on role
+## 💻 Local Development
 
-## 📁 Project Structure
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Open http://localhost:3000
+```
+
+### Demo Login
+
+- **CEO**: `ceo@acme.com` / `password`
+- **Demo User**: `demo@acme.com` / `password`
+
+## 🔑 Environment Variables
+
+Create `.env.local`:
+
+```bash
+# AI Providers (at least one required)
+GEMINI_API_KEY=your_gemini_key_here
+GROQ_API_KEY=your_groq_key_here
+
+# Database (optional)
+DATABASE_URL=postgresql://user:password@host:5432/database
+```
+
+Get API keys:
+- **Gemini**: [aistudio.google.com](https://aistudio.google.com/apikey)
+- **Groq**: [console.groq.com](https://console.groq.com/keys)
+
+## 🏗️ Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Database**: PostgreSQL + Drizzle ORM
+- **AI**: Google Gemini & Groq
+- **Auth**: Session-based (expandable to NextAuth/Clerk)
+
+## 📚 Documentation
+
+- [**GITHUB_DEPLOY.md**](GITHUB_DEPLOY.md) - Complete deployment guide
+- [**INTEGRATION_GUIDE.md**](INTEGRATION_GUIDE.md) - API integration details
+- [**ARCHITECTURE.md**](ARCHITECTURE.md) - System architecture
+- [**QUICK_START.md**](QUICK_START.md) - User guide
+
+## 🎯 How It Works
+
+### AI Failover System
+
+```
+User Message
+    ↓
+Try Gemini API (primary)
+    ↓ fails?
+Try Groq API (fallback)
+    ↓ fails?
+Use Mock AI (development)
+    ↓ Gemini recovers?
+Auto-switch back to Gemini
+```
+
+### Authentication Flow
+
+```
+Visit /dashboard (unauthenticated)
+    ↓
+Middleware redirects to /login
+    ↓
+User logs in
+    ↓
+Session cookie set
+    ↓
+Access granted to all dashboard routes
+```
+
+## 🎨 Screenshots
+
+### Dashboard
+Modern overview with company metrics, goals, and activity feed.
+
+### AI Agent Chat
+ChatGPT-style interface with real-time AI responses using Gemini/Groq.
+
+### Kanban Board
+Drag-and-drop task management with team and AI agent assignments.
+
+### Website Builder
+Generate complete websites from text prompts with live preview.
+
+## 📦 Project Structure
 
 ```
 src/
 ├── app/
-│   ├── (dashboard)/          # Dashboard route group
+│   ├── (dashboard)/          # Protected routes
 │   │   ├── dashboard/        # Main dashboard
-│   │   ├── organization/     # Company org chart
-│   │   ├── team/            # Team management
-│   │   ├── agents/          # AI agents
-│   │   │   ├── new/         # Agent builder
-│   │   │   └── [id]/        # Agent chat
-│   │   ├── projects/        # Project management
-│   │   ├── tasks/           # Kanban board
-│   │   ├── knowledge/       # Knowledge base
-│   │   ├── website/         # Website builder
-│   │   │   └── [id]/        # Website editor
-│   │   └── apps/            # App builder (coming soon)
-│   ├── api/
-│   │   └── health/          # Health check endpoint
-│   └── layout.tsx           # Root layout
-├── components/
-│   └── Sidebar.tsx          # Navigation sidebar
-├── db/
-│   ├── schema.ts            # Drizzle ORM schema
-│   └── index.ts             # Database connection
-├── lib/
-│   └── mockData.ts          # Mock data store
+│   │   ├── agents/           # AI agents & chat
+│   │   ├── projects/         # Project management
+│   │   ├── tasks/            # Kanban board
+│   │   ├── knowledge/        # Knowledge base
+│   │   └── website/          # Website builder
+│   ├── login/                # Login page
+│   └── api/                  # API routes
+├── components/               # Reusable components
 ├── services/
-│   └── ai/
-│       ├── AIService.ts     # AI service interface
-│       └── MockAIService.ts # Mock implementation
-└── types/
-    └── index.ts             # TypeScript types
+│   ├── ai/                   # AI service layer
+│   └── auth/                 # Auth service layer
+├── lib/                      # Utilities
+└── middleware.ts             # Auth & routing
 ```
 
-## 🎨 Design Philosophy
+## 🔧 Available Scripts
 
-The interface follows a **modern AI operating system** aesthetic:
-
-- ✨ **Colorful yet minimal** - Tasteful use of color without overwhelming
-- 🎯 **Clean spacing** - Generous whitespace and clear visual hierarchy
-- 🔄 **Smooth interactions** - Subtle transitions and micro-animations
-- 📱 **Responsive** - Works seamlessly on all screen sizes
-- 🎭 **Premium feel** - Polished components and typography
-
-## 🔧 Mock Services
-
-### Mock AI Service
-The application includes a sophisticated mock AI service that provides realistic responses:
-
-- **Context-aware** - Responses vary based on agent role
-- **Domain-specific** - Different responses for marketing, finance, technical, etc.
-- **Streaming simulation** - Simulates real-time AI response streaming
-- **Website generation** - Creates complete website configurations
-
-### Mock Data Store
-In-memory data storage with:
-
-- **Demo data** - Pre-populated company, users, agents, projects, tasks
-- **CRUD operations** - Full create, read, update, delete support
-- **Relationships** - Maintains data relationships between entities
-- **Easy migration** - Designed to be replaced with real database
-
-## 🔌 Future API Integration
-
-The architecture is designed for easy integration with real services:
-
-### Replace Mock AI Service
-```typescript
-// Instead of MockAIService
-import { OpenAIService } from '@/services/ai/OpenAIService';
-// or
-import { AnthropicService } from '@/services/ai/AnthropicService';
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run typecheck    # Check TypeScript
 ```
-
-### Replace Mock Data Store
-The Drizzle schema is already defined. To use PostgreSQL:
-
-1. Configure `DATABASE_URL` in `.env`
-2. Run `npx drizzle-kit push` to apply schema
-3. Replace mock store calls with Drizzle queries
-
-### Add Authentication
-The sidebar displays user info, ready for auth integration:
-
-```typescript
-// Add your auth provider
-import { useAuth } from '@/lib/auth';
-const { user } = useAuth();
-```
-
-## 🗃️ Database Schema
-
-Complete PostgreSQL schema includes:
-
-- **companies** - Company information and configuration
-- **users** - Team members with roles and departments
-- **agents** - AI agents with capabilities and permissions
-- **conversations** - Agent conversation history
-- **messages** - Individual messages in conversations
-- **projects** - Project management
-- **projectMembers** - Project team assignments
-- **tasks** - Task management with status and priority
-- **knowledge** - Company knowledge base
-- **websites** - Generated websites
-- **activities** - Activity log
-
-## 🎯 Key Features Ready for Real AI
-
-### Agent Chat
-- ✅ Conversation UI
-- ✅ Message history
-- ✅ Streaming responses
-- 🔌 Ready for: OpenAI, Anthropic, or custom LLM
-
-### Website Builder
-- ✅ Prompt-based generation
-- ✅ Section-based architecture
-- ✅ Live preview
-- 🔌 Ready for: AI website generation APIs
-
-### Knowledge Base
-- ✅ Document storage structure
-- ✅ Content organization
-- 🔌 Ready for: Vector DB, RAG, semantic search
-
-## 📊 Dashboard Metrics
-
-The dashboard displays:
-
-- Team member count
-- AI agent count
-- Active projects
-- Open tasks
-- Company goals
-- Recent activity
-- Project progress
-
-## 🤖 Agent Capabilities
-
-Agents support:
-
-- **Roles** - Marketing, Finance, Product, Engineering, etc.
-- **Tools** - Data Analysis, Content Generation, Research, etc.
-- **Permissions** - Granular access control
-- **Goals** - Agent-specific objectives
-- **Personality** - Customizable behavior and tone
-- **Instructions** - Specific behavioral guidelines
-
-## 🎨 C-Suite Positions
-
-Support for all major executive roles:
-
-- **CEO** - Chief Executive Officer
-- **CFO** - Chief Financial Officer
-- **COO** - Chief Operating Officer
-- **CTO** - Chief Technology Officer
-- **CMO** - Chief Marketing Officer
-- **CHRO** - Chief Human Resources Officer
-- **CPO** - Chief Product Officer
-- **CRO** - Chief Revenue Officer
-- **CLO** - Chief Legal Officer
-- **CSO** - Chief Security Officer
-
-## 🚀 Getting Started
-
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-2. **Run development server**
-   ```bash
-   npm run dev
-   ```
-
-3. **Open browser**
-   Navigate to `http://localhost:3000`
-
-4. **Explore the app**
-   - View the dashboard
-   - Create AI agents
-   - Chat with agents
-   - Build a website
-   - Manage projects and tasks
-
-## 🔜 Coming Soon
-
-- **App Builder** - Generate mobile and web applications
-- **Real-time Collaboration** - Multi-user editing
-- **Advanced Analytics** - Company performance metrics
-- **Integrations** - Connect with external tools
-- **Mobile App** - Native mobile experience
-
-## 📝 Development Notes
-
-### Type Safety
-Full TypeScript coverage with strict type checking.
-
-### Code Organization
-- **Components** - Reusable UI components
-- **Services** - Business logic abstraction
-- **Types** - Centralized type definitions
-- **Clean separation** - UI, logic, and data layers
-
-### Performance
-- **Static generation** where possible
-- **Optimized builds** - Production-ready
-- **Lazy loading** - Code splitting
-
-### Accessibility
-- Semantic HTML
-- ARIA labels
-- Keyboard navigation support
-
-## 🎓 Learning Resources
-
-This application demonstrates:
-
-- Next.js 16 App Router patterns
-- Server components and client components
-- TypeScript best practices
-- Tailwind CSS utility patterns
-- Service abstraction
-- Mock-to-real API migration strategy
-- Database schema design with Drizzle ORM
-
-## 📄 License
-
-This is a template project for demonstration purposes.
 
 ## 🤝 Contributing
 
-This is a starting point. Customize it for your needs:
+Contributions welcome! Please:
 
-1. Replace mock services with real APIs
-2. Add authentication
-3. Connect to PostgreSQL
-4. Enhance UI components
-5. Add more features
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## 📝 License
+
+MIT License - feel free to use this project for your own company!
+
+## 🌟 Features Roadmap
+
+- [ ] Real-time agent collaboration
+- [ ] Voice chat with agents
+- [ ] Mobile app
+- [ ] Advanced analytics
+- [ ] Slack/Discord integration
+- [ ] Multi-company support
+- [ ] Advanced permissions system
+
+## 🆘 Support
+
+- **Documentation**: Check the `/docs` files in this repo
+- **Issues**: Open a GitHub issue
+- **Deployment Help**: See [GITHUB_DEPLOY.md](GITHUB_DEPLOY.md)
 
 ---
 
-Built with ❤️ using Next.js, TypeScript, and Tailwind CSS
+**Built with ❤️ using Next.js, TypeScript, and AI**
+
+**Ready to deploy?** Click the button below:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
